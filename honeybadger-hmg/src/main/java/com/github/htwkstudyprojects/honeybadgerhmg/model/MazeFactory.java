@@ -2,9 +2,9 @@ package com.github.htwkstudyprojects.honeybadgerhmg.model;
 
 public class MazeFactory {
 
-    public IMaze generateMaze(String mazeType, int rang){
+    public HoneyCombMaze generateMaze(String mazeType, int rang, int edgeLength){
        return switch (mazeType.toLowerCase()){
-            case "honeycomb" -> (IMaze) HoneyCombMaze.generateHoneyCombMaze(rang);
+            case "honeycomb" -> HoneyCombMaze.generateHoneyCombMaze(rang,edgeLength);
 
             default -> throw new IllegalArgumentException("Unknown maze type: " + mazeType);
         };

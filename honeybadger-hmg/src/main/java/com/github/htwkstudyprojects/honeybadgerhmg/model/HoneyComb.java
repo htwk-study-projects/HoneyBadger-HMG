@@ -1,5 +1,7 @@
 package com.github.htwkstudyprojects.honeybadgerhmg.model;
 
+import java.util.Arrays;
+
 public class HoneyComb {
     private static int idCounter = 0;
 
@@ -65,4 +67,38 @@ public class HoneyComb {
         return false;
     }
 
+    
+
+    @Override
+    public String toString() {
+        return "HoneyComb [definingEdges=" + Arrays.toString(definingEdges) + "]\n";
+    }
+
+    public void calculateDefiningEgdes(Point startPoint, int edgeLength) {
+
+        Edge[] calculatedEdges = new Edge[6];
+
+        double centerX = startPoint.getX();
+        double centerY = startPoint.getY();
+        
+        double[] angles = {150, 90, 30, -30, -90, -150, 150};
+        
+        System.out.println(startPoint.getX() + " " + startPoint.getY());
+
+        Point[] tempPoints = new Point[2];
+        
+        for (int i = 0; i < 7; i++) {
+
+            double angle = Math.toRadians(angles[i]);
+            double x = centerX + edgeLength * Math.cos(angle);
+            double y = centerY + edgeLength * Math.sin(angle);
+            
+            tempPoints[i%2] = new Point(x, y); 
+
+            if(i > 0){
+                calculatedEdges[i-1] = new Edge(tempPoints[0],tempPoints[1]); 
+            }
+        }
+        this.definingEdges = calculatedEdges;
+    }
 }

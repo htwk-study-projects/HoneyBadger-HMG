@@ -6,12 +6,16 @@ public class Edge {
     private boolean isWall;
     private boolean isDestructible;
 
-    public Edge(Point start, Point end, boolean isWall, boolean isDestructible){
+    public Edge(Point start, Point end){
         this.startPoint = start;
         this.endPoint = end;
-        this.isWall = isWall;
-        this.isDestructible = isDestructible;
+        this.isWall = true;
+        this.isDestructible = true;
+    }
 
+    @Override
+    public String toString() {
+        return "Edge [startPoint=" + startPoint + ", endPoint=" + endPoint;
     }
 
     @Override
