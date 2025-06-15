@@ -45,6 +45,6 @@ public class HoneyCombMaze {
     }
 
     public List<HoneyComb> getHoneyCombs() {
-        return new ArrayList<>(honeyCombs);
+        return honeyCombs;
     }
 }
