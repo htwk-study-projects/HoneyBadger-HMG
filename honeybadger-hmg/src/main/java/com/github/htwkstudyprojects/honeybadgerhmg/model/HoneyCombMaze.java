@@ -15,9 +15,11 @@ public class HoneyCombMaze {
     }
 
 
-    static public HoneyCombMaze generateHoneyCombMaze(int wantedCombCount){
+    static public HoneyCombMaze generateHoneyCombMaze(int rang){
+        int wantedCombCountFromRang = 1 + 3 * rang * (rang + 1);
+        
         // TODO: implement real generation
-        return new HoneyCombMaze(wantedCombCount);
+        return new HoneyCombMaze(wantedCombCountFromRang);
     }
 
     public boolean addHoneyComb(HoneyComb honeyComb) {
