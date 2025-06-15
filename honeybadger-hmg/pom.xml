@@ -63,9 +63,16 @@
 
       <!-- Jar Plugin -->
       <plugin>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>3.0.2</version>
-      </plugin>
+      <artifactId>maven-jar-plugin</artifactId>
+      <version>3.0.2</version>
+      <configuration>
+        <archive>
+          <manifest>
+            <mainClass>com.github.htwkstudyprojects.honeybadgerhmg.HoneyBadgerHMG</mainClass>
+          </manifest>
+        </archive>
+      </configuration>
+    </plugin>
 
       <!-- Install Plugin -->
       <plugin>

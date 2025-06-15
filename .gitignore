@@ -2,7 +2,7 @@
 *.class
 
 # Maven target directory
-/target/
+**/target/
 
 # Log files
 *.log
