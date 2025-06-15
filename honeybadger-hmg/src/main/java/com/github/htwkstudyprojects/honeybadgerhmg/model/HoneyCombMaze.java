@@ -9,9 +9,15 @@ public class HoneyCombMaze {
     private List<HoneyComb> honeyCombs;
     private final int wantedCombCount;
 
-    public HoneyCombMaze(int wantedCombCount) {
+    private HoneyCombMaze(int wantedCombCount) {
         this.wantedCombCount = wantedCombCount;
         this.honeyCombs = new ArrayList<>();
+    }
+
+
+    static public HoneyCombMaze generateHoneyCombMaze(int wantedCombCount){
+        // TODO: implement real generation
+        return new HoneyCombMaze(wantedCombCount);
     }
 
     public boolean addHoneyComb(HoneyComb honeyComb) {
