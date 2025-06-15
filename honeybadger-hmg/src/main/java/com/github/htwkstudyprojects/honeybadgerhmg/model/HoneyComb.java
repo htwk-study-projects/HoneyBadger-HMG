@@ -57,4 +57,12 @@ public class HoneyComb {
         this.neighborHoneyCombs = neighborHoneyCombs;
     }
 
+    public boolean isEdgePartOfHoneyComb(Edge edgeToDecide){
+        if (edgeToDecide == null) return false;
+        for(Edge edge : this.definingEdges){
+            if(edgeToDecide.equals(edge)) return true;
+        }
+        return false;
+    }
+
 }
