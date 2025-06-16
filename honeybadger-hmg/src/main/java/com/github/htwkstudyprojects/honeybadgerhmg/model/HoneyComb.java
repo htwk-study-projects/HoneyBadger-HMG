@@ -67,37 +67,28 @@ public class HoneyComb {
         return false;
     }
 
-    
-
     @Override
     public String toString() {
         return "HoneyComb [definingEdges=" + Arrays.toString(definingEdges) + "]\n";
     }
 
-    public void calculateDefiningEgdes(Point startPoint, int edgeLength) {
-
-        Edge[] calculatedEdges = new Edge[6];
+    public void calculateDefiningEdges(Point startPoint, int edgeLength) {
+        final double[] angles = {150, 90, 30, -30, -90, -150, 150};
 
         double centerX = startPoint.getX();
         double centerY = startPoint.getY();
         
-        double[] angles = {150, 90, 30, -30, -90, -150, 150};
-        
-        System.out.println(startPoint.getX() + " " + startPoint.getY());
-
-        Point[] tempPoints = new Point[2];
-        
-        for (int i = 0; i < 7; i++) {
-
+        Point[] tempPoints = new Point[7];
+        for (int i = 0; i < tempPoints.length; i++) {
             double angle = Math.toRadians(angles[i]);
             double x = centerX + edgeLength * Math.cos(angle);
             double y = centerY + edgeLength * Math.sin(angle);
-            
-            tempPoints[i%2] = new Point(x, y); 
+            tempPoints[i] = new Point(x, y);
+        }
 
-            if(i > 0){
-                calculatedEdges[i-1] = new Edge(tempPoints[0],tempPoints[1]); 
-            }
+        Edge[] calculatedEdges = new Edge[6];
+        for(int i = 0; i < tempPoints.length; i++){
+            calculatedEdges[i] = new Edge(tempPoints[i], tempPoints[i + 1]);
         }
         this.definingEdges = calculatedEdges;
     }
