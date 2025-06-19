@@ -24,7 +24,6 @@ public class HoneyCombMaze {
         this.calculateElementsEachRow = calculateElementsEachRow();
     }
 
-
     static public HoneyCombMaze generateHoneyCombMaze(int rang, int edgeLength){
         HoneyCombMaze honeyCombMaze = new HoneyCombMaze(rang);
         honeyCombMaze.generateHoneyCombStructure(edgeLength, honeyCombMaze.calculateElementsEachRow);
@@ -198,8 +197,12 @@ public class HoneyCombMaze {
         return Optional.empty();
     }
 
-    public int size() {
-        return honeyCombsRowGrid.size();
+    public int getHoneyCombCount(){
+        int count = 0;
+        for(int rowCount : this.calculateElementsEachRow){
+            count += rowCount;
+        }
+        return count;
     }
 
     public List<List<HoneyComb>> getHoneyCombs() {
