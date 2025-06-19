@@ -25,7 +25,8 @@ public class MazeService {
             maze.toSvg("normal.svg");
             
             HoneyCombMaze badgedMaze = MazeBadger.processHoneyBadger(maze, config.getCellChangePercent());
-            badgedMaze.toSvg("badged.svg");
+            String svgString= badgedMaze.toSvg("badged.svg");
+            cppParser.convertSvgToCpp(svgString);
             return maze;
         } catch (Exception e) {
             System.out.println("Error during maze generation!");

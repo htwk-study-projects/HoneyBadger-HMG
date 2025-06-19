@@ -10,6 +10,8 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
+import com.github.htwkstudyprojects.honeybadgerhmg.repository.string;
+
 public class HoneyCombMaze {
 
     private List<List<HoneyComb>> honeyCombsRowGrid;
@@ -214,7 +216,7 @@ public class HoneyCombMaze {
         return "HoneyCombMaze [honeyCombsRowGrid=\n" + honeyCombsRowGrid + "]";
     }
 
-    public void toSvg(String name) {
+    public String toSvg(String name) {
         StringBuilder svg = new StringBuilder();
         
         double minX = Double.MAX_VALUE;
@@ -283,5 +285,6 @@ public class HoneyCombMaze {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return svg.toString();
     }
 }
