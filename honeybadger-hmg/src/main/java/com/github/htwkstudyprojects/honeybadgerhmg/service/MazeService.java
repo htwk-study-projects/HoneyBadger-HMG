@@ -21,7 +21,8 @@ public class MazeService {
         try {
             config = repo.loadConfiguration(args);
             HoneyCombMaze maze = factory.generateMaze(config.getMazeType(), config.getRang(), 2);
-            maze.toSvg();
+            String svgString = maze.toSvg();
+            cppParser.convertSvgToCpp(svgString);
             return maze;
         } catch (Exception e) {
             System.out.println("Error during maze generation!");
