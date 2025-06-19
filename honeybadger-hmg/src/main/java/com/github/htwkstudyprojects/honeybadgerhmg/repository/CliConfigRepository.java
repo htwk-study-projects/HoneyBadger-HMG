@@ -5,6 +5,7 @@ public class CliConfigRepository implements IMazeConfigRepository{
     @Override
     public MazeConfigDto loadConfiguration(String[] args) {
         int rang = -1;
+        String type = "";
         double cellChangePercent = -1;
         Long seed = null;
 
@@ -19,9 +20,16 @@ public class CliConfigRepository implements IMazeConfigRepository{
                 case "-s":
                     seed = Long.parseLong(args[++i]);
                     break;
+                case "-t":
+                    type = (args[++i]).toLowerCase();
+                    break;
                 default:
                     throw new IllegalArgumentException("Unknown argument: " + args[i]);
             }
+        }
+
+        if ( type == "") {
+            throw new IllegalArgumentException("mazeType was empty, example for type: honeycomb");
         }
 
         if (rang <= 0) {
@@ -32,7 +40,7 @@ public class CliConfigRepository implements IMazeConfigRepository{
             throw new IllegalArgumentException("cellChangePercent must be between 0.0 and 100.0, but was: " + cellChangePercent);
         }
 
-        return new MazeConfigDto(rang, cellChangePercent, seed);
+        return new MazeConfigDto(type, rang, cellChangePercent, seed);
     }
     
 }
