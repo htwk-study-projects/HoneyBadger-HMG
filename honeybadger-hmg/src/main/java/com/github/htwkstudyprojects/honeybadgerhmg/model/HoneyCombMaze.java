@@ -10,8 +10,6 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
-import com.github.htwkstudyprojects.honeybadgerhmg.repository.string;
-
 public class HoneyCombMaze {
 
     private List<List<HoneyComb>> honeyCombsRowGrid;
