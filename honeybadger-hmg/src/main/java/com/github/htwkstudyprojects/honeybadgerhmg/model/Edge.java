@@ -15,38 +15,29 @@ public class Edge {
 
     @Override
     public String toString() {
-        return "Edge [startPoint=" + startPoint + ", endPoint=" + endPoint;
+        return "Edge [startPoint=" + startPoint + ", endPoint=" + endPoint + ", isWall: " + isWall + "]\n";
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((startPoint == null) ? 0 : startPoint.hashCode());
-        result = prime * result + ((endPoint == null) ? 0 : endPoint.hashCode());
-        return result;
+        int hashStart = (startPoint == null) ? 0 : startPoint.hashCode();
+        int hashEnd = (endPoint == null) ? 0 : endPoint.hashCode();
+
+        return hashStart + hashEnd;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+
         Edge other = (Edge) obj;
-        if (startPoint == null) {
-            if (other.startPoint != null)
-                return false;
-        } else if (!startPoint.equals(other.startPoint))
-            return false;
-        if (endPoint == null) {
-            if (other.endPoint != null)
-                return false;
-        } else if (!endPoint.equals(other.endPoint))
-            return false;
-        return true;
+        boolean directEqual = (startPoint == null ? other.startPoint == null : startPoint.equals(other.startPoint)) &&
+                              (endPoint == null ? other.endPoint == null : endPoint.equals(other.endPoint));
+        boolean reversedEqual = (startPoint == null ? other.endPoint == null : startPoint.equals(other.endPoint)) &&
+                                (endPoint == null ? other.startPoint == null : endPoint.equals(other.startPoint));
+        return directEqual || reversedEqual;
     }
 
     public Point getStartPoint() {
