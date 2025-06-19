@@ -2,14 +2,20 @@ package com.github.htwkstudyprojects.honeybadgerhmg.repository;
 
 public class MazeConfigDto {
 
+    private final String mazeType;
     private final int rang;
     private final double cellChangePercent;
     private final Long seed; // Optional
 
-    public MazeConfigDto(int rang, double cellChangePercent, Long seed) {
+    public MazeConfigDto(String type, int rang, double cellChangePercent, Long seed) {
+        this.mazeType = type;
         this.rang = rang;
         this.cellChangePercent = cellChangePercent;
         this.seed = seed;
+    }
+
+    public String getMazeType(){
+        return mazeType;
     }
 
     public int getRang() {
