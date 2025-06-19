@@ -10,8 +10,6 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
-import com.github.htwkstudyprojects.honeybadgerhmg.repository.string;
-
 public class HoneyCombMaze {
 
     private List<List<HoneyComb>> honeyCombsRowGrid;
@@ -25,7 +23,6 @@ public class HoneyCombMaze {
         this.random = new Random();
         this.calculateElementsEachRow = calculateElementsEachRow();
     }
-
 
     static public HoneyCombMaze generateHoneyCombMaze(int rang, int edgeLength){
         HoneyCombMaze honeyCombMaze = new HoneyCombMaze(rang);
@@ -200,8 +197,12 @@ public class HoneyCombMaze {
         return Optional.empty();
     }
 
-    public int size() {
-        return honeyCombsRowGrid.size();
+    public int getHoneyCombCount(){
+        int count = 0;
+        for(int rowCount : this.calculateElementsEachRow){
+            count += rowCount;
+        }
+        return count;
     }
 
     public List<List<HoneyComb>> getHoneyCombs() {
@@ -213,7 +214,7 @@ public class HoneyCombMaze {
         return "HoneyCombMaze [honeyCombsRowGrid=\n" + honeyCombsRowGrid + "]";
     }
 
-    public String toSvg() {
+    public String toSvg(String name) {
         StringBuilder svg = new StringBuilder();
         
         double minX = Double.MAX_VALUE;
@@ -275,7 +276,7 @@ public class HoneyCombMaze {
             }
         }
 
-        File svgFile = new File(targetDir, "honeycomb_maze.svg");
+        File svgFile = new File(targetDir, name);
         try (PrintWriter out = new PrintWriter(svgFile)) {
             out.println(svg.toString());
             System.out.println("SVG-Datei erstellt: " + svgFile.getAbsolutePath());

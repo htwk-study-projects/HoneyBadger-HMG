@@ -1,6 +1,7 @@
 package com.github.htwkstudyprojects.honeybadgerhmg.service;
 
 import com.github.htwkstudyprojects.honeybadgerhmg.model.HoneyCombMaze;
+import com.github.htwkstudyprojects.honeybadgerhmg.model.MazeBadger;
 import com.github.htwkstudyprojects.honeybadgerhmg.model.MazeFactory;
 import com.github.htwkstudyprojects.honeybadgerhmg.repository.CliConfigRepository;
 import com.github.htwkstudyprojects.honeybadgerhmg.repository.IMazeConfigRepository;
@@ -21,7 +22,10 @@ public class MazeService {
         try {
             config = repo.loadConfiguration(args);
             HoneyCombMaze maze = factory.generateMaze(config.getMazeType(), config.getRang(), 2);
-            String svgString = maze.toSvg();
+            maze.toSvg("normal.svg");
+            
+            HoneyCombMaze badgedMaze = MazeBadger.processHoneyBadger(maze, config.getCellChangePercent());
+            String svgString= badgedMaze.toSvg("badged.svg");
             cppParser.convertSvgToCpp(svgString);
             return maze;
         } catch (Exception e) {
@@ -32,6 +36,7 @@ public class MazeService {
             System.out.println("  -p <double> (cell change percentage between 0.0 and 100.0)");
             System.out.println("  -s <seed> (optional, for reproducible results)");
             System.out.println("Error details: " + e.getMessage());
+            e.printStackTrace();
         }
         return null;
     }

@@ -27,7 +27,7 @@ public class cppParser {
             float x2 = Float.parseFloat(matcher.group(3));
             float y2 = Float.parseFloat(matcher.group(4));
 
-            String block = String.format(
+            String block = String.format(Locale.US,
                 "    {\n" +
                 "        Mazepolygon poly;\n" +
                 "        poly.coordinates.push_back({%.2ff, %.2ff});\n" +
@@ -58,7 +58,7 @@ public class cppParser {
 
         File cppFile = new File(targetDir, "maze_generator.cpp");
         try (PrintWriter out = new PrintWriter(cppFile)) {
-            out.println(cppCode); // ✅ Hier wird der C++-Code geschrieben
+            out.println(cppCode);
             System.out.println("maze_generator.cpp wurde erstellt: " + cppFile.getAbsolutePath());
         } catch (Exception e) {
             e.printStackTrace();
