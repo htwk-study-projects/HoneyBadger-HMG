@@ -211,7 +211,7 @@ public class HoneyCombMaze {
         return "HoneyCombMaze [honeyCombsRowGrid=\n" + honeyCombsRowGrid + "]";
     }
 
-    public void toSvg() {
+    public void toSvg(String name) {
         StringBuilder svg = new StringBuilder();
         
         double minX = Double.MAX_VALUE;
@@ -273,7 +273,7 @@ public class HoneyCombMaze {
             }
         }
 
-        File svgFile = new File(targetDir, "honeycomb_maze.svg");
+        File svgFile = new File(targetDir, name);
         try (PrintWriter out = new PrintWriter(svgFile)) {
             out.println(svg.toString());
             System.out.println("SVG-Datei erstellt: " + svgFile.getAbsolutePath());

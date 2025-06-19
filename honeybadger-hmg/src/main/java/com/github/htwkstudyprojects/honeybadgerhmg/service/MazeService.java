@@ -1,6 +1,9 @@
 package com.github.htwkstudyprojects.honeybadgerhmg.service;
 
+import java.util.Optional;
+
 import com.github.htwkstudyprojects.honeybadgerhmg.model.HoneyCombMaze;
+import com.github.htwkstudyprojects.honeybadgerhmg.model.MazeBadger;
 import com.github.htwkstudyprojects.honeybadgerhmg.model.MazeFactory;
 import com.github.htwkstudyprojects.honeybadgerhmg.repository.CliConfigRepository;
 import com.github.htwkstudyprojects.honeybadgerhmg.repository.IMazeConfigRepository;
@@ -21,7 +24,13 @@ public class MazeService {
         try {
             config = repo.loadConfiguration(args);
             HoneyCombMaze maze = factory.generateMaze(config.getMazeType(), config.getRang(), 2);
-            maze.toSvg();
+            Optional<HoneyCombMaze> opt = MazeBadger.processMazeBadger(maze, config.getCellChangePercent());
+            HoneyCombMaze badgedMaze = null;
+            if(opt.isPresent()){
+                badgedMaze = opt.get();
+            };
+            maze.toSvg("normal.svg");
+            badgedMaze.toSvg("badged.svg");
             return maze;
         } catch (Exception e) {
             System.out.println("Error during maze generation!");

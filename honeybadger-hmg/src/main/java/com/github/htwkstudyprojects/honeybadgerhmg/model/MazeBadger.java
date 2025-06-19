@@ -1,25 +1,16 @@
-package com.github.htwkstudyprojects.honeybadgerhmg.service;
+package com.github.htwkstudyprojects.honeybadgerhmg.model;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-import com.github.htwkstudyprojects.honeybadgerhmg.model.Edge;
-import com.github.htwkstudyprojects.honeybadgerhmg.model.HoneyComb;
-import com.github.htwkstudyprojects.honeybadgerhmg.model.HoneyCombMaze;
-import com.github.htwkstudyprojects.honeybadgerhmg.model.IMaze;
-
 public class MazeBadger {
 
-    public Optional<IMaze> processMazeBadger(IMaze maze, double cellChangePercent) {
+    public static Optional<HoneyCombMaze> processMazeBadger(HoneyCombMaze maze, double cellChangePercent) {
         try {
             if(cellChangePercent > 100.0 || cellChangePercent < 0.0) throw new IllegalStateException("Invalid cellChangePercent value: " + cellChangePercent);
 
-            IMaze result = switch (maze) {
-                case HoneyCombMaze honeyCombMaze -> (IMaze) honeyBadger(honeyCombMaze, cellChangePercent);
-
-                default -> throw new UnsupportedOperationException("Maze type not supported: " + maze.getClass().getName());
-            };
+            HoneyCombMaze result = honeyBadger(maze, cellChangePercent);
             return Optional.of(result);
         } catch (Exception e) {
             System.err.println("MazeBadger processing failed: " + e.getMessage());
@@ -27,7 +18,9 @@ public class MazeBadger {
         }
     }
 
-    private HoneyCombMaze honeyBadger(HoneyCombMaze maze, double cellChangePercent) {
+    // TODO: geht so nicht, copy machen und das löschen neu machen
+    private static HoneyCombMaze honeyBadger(HoneyCombMaze maze, double cellChangePercent) {
+        HoneyCombMaze mazeCopy = maze.
         List<List<HoneyComb>> honeyCombsList = maze.getHoneyCombs();
         List<HoneyComb> honeyCombs = honeyCombsList.stream().flatMap(List::stream).toList();
 
