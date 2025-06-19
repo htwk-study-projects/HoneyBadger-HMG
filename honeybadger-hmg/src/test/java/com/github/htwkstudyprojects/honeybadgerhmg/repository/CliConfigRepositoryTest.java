@@ -25,8 +25,8 @@ public class CliConfigRepositoryTest {
         IMazeConfigRepository repo = new CliConfigRepository();
 
         TestCase[] cases = new TestCase[] {
-            new TestCase("Valid input with seed", new String[] {"-r", "3", "-p", "50.0", "-s", "12345"}, true),
-            new TestCase("Valid input without seed", new String[] {"-r", "2", "-p", "25.5"}, true),
+            new TestCase("Valid input with seed", new String[] {"-t", "honeycomb", "-r", "3", "-p", "50.0", "-s", "12345"}, true),
+            new TestCase("Valid input without seed", new String[] {"-t", "honeycomb", "-r", "2", "-p", "25.5"}, true),
             new TestCase("Invalid rang (zero)", new String[] {"-r", "0", "-p", "50.0"}, false),
             new TestCase("Invalid percent (too high)", new String[] {"-r", "3", "-p", "150.0"}, false),
             new TestCase("Invalid percent (negative)", new String[] {"-r", "3", "-p", "-5"}, false),
