@@ -28,7 +28,8 @@ public class MazeBadger {
     }
 
     private HoneyCombMaze honeyBadger(HoneyCombMaze maze, double cellChangePercent) {
-        List<HoneyComb> honeyCombs = maze.getHoneyCombs();
+        List<List<HoneyComb>> honeyCombsList = maze.getHoneyCombs();
+        List<HoneyComb> honeyCombs = honeyCombsList.stream().flatMap(List::stream).toList();
 
         if(honeyCombs.isEmpty()) throw new IllegalStateException("Maze contains no honeycombs");
 
@@ -44,13 +45,14 @@ public class MazeBadger {
 
             }
 
-            for(HoneyComb neighbor : selectedHoneyComb.getNeighborHoneyCombs()){
-                if (neighbor != null) {
-                    for (Edge edge : neighbor.getDefiningEdges()) {
-                        if (!selectedHoneyComb.isEdgePartOfHoneyComb(edge) && edge.isDestructible()) {
-                            edge.setWall(false);
-                        }
-                    }
+            for(int neighborId : selectedHoneyComb.getNeighborHoneyCombs()){
+                if (neighborId != -1) {
+                    maze.getHoneyCombById(neighborId).ifPresent(neighbor -> {
+                    for (Edge edge : neighbor.getDefiningEdges()){
+                            if (!selectedHoneyComb.isEdgePartOfHoneyComb(edge) && edge.isDestructible()) {
+                                edge.setWall(false);
+                            };
+                    }});
                 }
             }
         }
