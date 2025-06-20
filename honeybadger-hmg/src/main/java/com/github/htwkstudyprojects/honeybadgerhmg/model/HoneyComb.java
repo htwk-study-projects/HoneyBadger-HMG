@@ -9,6 +9,7 @@ public class HoneyComb {
     private final Point centerPoint;
     private Edge[] definingEdges;
     private int[] neighborHoneyCombs;
+    private int[] reachableNeighborHoneyCombs;
 
     public HoneyComb(Point centerPoint, int edgeLength){
         this.id = idCounter;
@@ -18,7 +19,11 @@ public class HoneyComb {
         definingEdges = new Edge[6];
         this.calculateDefiningEdges(this.centerPoint, edgeLength);
         neighborHoneyCombs = new int[6];
-        for(int i = 0; i < neighborHoneyCombs.length; i++) neighborHoneyCombs[i] = -1;
+        reachableNeighborHoneyCombs = new int[6];
+        for(int i = 0; i < neighborHoneyCombs.length; i++){
+            neighborHoneyCombs[i] = -1;
+            reachableNeighborHoneyCombs[i] = -1;
+        }
     }
 
     @Override
@@ -112,8 +117,18 @@ public class HoneyComb {
             System.out.println("Neighbors: " + Arrays.toString(this.neighborHoneyCombs));
             System.out.println("Chosen direction: " + direction);
             this.definingEdges[direction.getIndex()].setWall(false);
-            System.out.println(this.definingEdges[direction.getIndex()].isWall());
         } 
         else System.out.println("error bei remove wall");
+    }
+
+    public int[] getReachableNeighborHoneyCombs(){
+        System.out.println(Arrays.toString(definingEdges));
+        for(Directions dir : Directions.values()){
+            if(dir == Directions.ERROR) continue;
+            if(!this.definingEdges[dir.getIndex()].isWall()){
+                this.reachableNeighborHoneyCombs[dir.getIndex()] = this.neighborHoneyCombs[dir.getIndex()];
+            }
+        }
+        return this.reachableNeighborHoneyCombs;
     }
 }

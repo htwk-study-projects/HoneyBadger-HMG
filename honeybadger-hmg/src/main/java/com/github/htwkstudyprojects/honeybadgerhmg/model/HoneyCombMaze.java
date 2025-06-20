@@ -273,6 +273,7 @@ public class HoneyCombMaze {
             }
         }
         svg.append("</g>\n</svg>");
+
         File targetDir = new File("svg");
         if (!targetDir.exists()) {
             if (targetDir.mkdirs()) {
