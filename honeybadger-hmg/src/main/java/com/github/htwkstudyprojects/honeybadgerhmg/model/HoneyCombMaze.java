@@ -240,14 +240,20 @@ public class HoneyCombMaze {
     
         System.out.println("Anzahl gezeichneter Edges: " + edgeCount);
     
-        double width = maxX - minX + 10;
-        double height = maxY - minY + 10;
+        double padding = 2;
+        double width = maxX - minX + padding * 2;
+        double height = maxY - minY + padding * 2;
     
         svg.append(String.format(Locale.US,
             "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"%.2f\" height=\"%.2f\" viewBox=\"%.2f %.2f %.2f %.2f\">\n",
-            width, height, minX - 5, minY - 5, width, height
+            width, height, minX - padding, minY - padding, width, height
         ));
         svg.append("<g stroke-width=\"0.4\" fill=\"none\">\n");
+
+        svg.append(String.format(Locale.US,
+            "<rect x=\"%.2f\" y=\"%.2f\" width=\"%.2f\" height=\"%.2f\" stroke=\"red\" stroke-width=\"0.5\" fill=\"none\" />\n",
+            minX - padding, minY - padding, width, height
+        ));
     
         for (List<HoneyComb> row : honeyCombsRowGrid) {
             for (HoneyComb comb : row) {
@@ -267,6 +273,7 @@ public class HoneyCombMaze {
             }
         }
         svg.append("</g>\n</svg>");
+
         File targetDir = new File("svg");
         if (!targetDir.exists()) {
             if (targetDir.mkdirs()) {
