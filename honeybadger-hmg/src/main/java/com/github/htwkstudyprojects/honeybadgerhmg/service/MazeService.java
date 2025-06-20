@@ -24,13 +24,16 @@ public class MazeService {
         MazeConfigDto config;
         try {
             config = repo.loadConfiguration(args);
+            
             HoneyCombMaze maze = factory.generateMaze(config.getMazeType(), config.getRang(), 2);
             maze.toSvg("normal.svg");
             
             HoneyCombMaze badgedMaze = MazeBadger.processHoneyBadger(maze, config.getCellChangePercent());
             String svgString = badgedMaze.toSvg("badged.svg");
+
             List<SolutionGraphNode> sg = SolutionGraphNode.generateSolutionGraph(badgedMaze);
-            System.out.println(sg);
+            SolutionGraphNode.toSvg(sg, "sg.svg");
+
             cppParser.convertSvgToCpp(svgString);
             return maze;
         } catch (Exception e) {
