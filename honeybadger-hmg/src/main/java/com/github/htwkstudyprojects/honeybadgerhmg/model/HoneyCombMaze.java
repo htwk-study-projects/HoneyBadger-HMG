@@ -251,7 +251,7 @@ public class HoneyCombMaze {
         svg.append("<g stroke-width=\"0.4\" fill=\"none\">\n");
 
         svg.append(String.format(Locale.US,
-            "<rect x=\"%.2f\" y=\"%.2f\" width=\"%.2f\" height=\"%.2f\" stroke=\"red\" stroke-width=\"0.5\" fill=\"none\" />\n",
+            "<rect x=\"%.2f\" y=\"%.2f\" width=\"%.2f\" height=\"%.2f\" stroke=\"black\" stroke-width=\"0.5\" fill=\"none\" />\n",
             minX - padding, minY - padding, width, height
         ));
     

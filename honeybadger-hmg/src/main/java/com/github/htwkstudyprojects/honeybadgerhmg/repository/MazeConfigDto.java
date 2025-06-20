@@ -5,12 +5,14 @@ public class MazeConfigDto {
     private final String mazeType;
     private final int rang;
     private final double cellChangePercent;
+    private final int edgeLength;
     private final Long seed; // Optional
 
-    public MazeConfigDto(String type, int rang, double cellChangePercent, Long seed) {
+    public MazeConfigDto(String type, int rang, double cellChangePercent, int edgeLength, Long seed) {
         this.mazeType = type;
         this.rang = rang;
         this.cellChangePercent = cellChangePercent;
+        this.edgeLength = edgeLength;
         this.seed = seed;
     }
 
@@ -26,6 +28,10 @@ public class MazeConfigDto {
         return cellChangePercent;
     }
 
+    public int getEdgeLength(){
+        return edgeLength;
+    }
+
     public Long getSeed() {
         return seed;
     }
@@ -35,6 +41,7 @@ public class MazeConfigDto {
         return "MazeConfiguration{" +
                 "rang=" + rang +
                 ", cellChangePercent=" + cellChangePercent +
+                ", edgeLength=" + edgeLength+
                 ", seed=" + seed +
                 '}';
     }

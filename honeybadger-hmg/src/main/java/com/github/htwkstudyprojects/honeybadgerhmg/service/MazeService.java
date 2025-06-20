@@ -20,32 +20,36 @@ public class MazeService {
         factory = new MazeFactory();
     }
 
-    public HoneyCombMaze generateMaze(String[] args) {
+    public void generateMaze(String[] args) {
         MazeConfigDto config;
         try {
             config = repo.loadConfiguration(args);
             
-            HoneyCombMaze maze = factory.generateMaze(config.getMazeType(), config.getRang(), 2);
+            HoneyCombMaze maze = factory.generateMaze(config.getMazeType(), config.getRang(), config.getEdgeLength());
             maze.toSvg("normal.svg");
             
             HoneyCombMaze badgedMaze = MazeBadger.processHoneyBadger(maze, config.getCellChangePercent());
             String svgString = badgedMaze.toSvg("badged.svg");
 
             List<SolutionGraphNode> sg = SolutionGraphNode.generateSolutionGraph(badgedMaze);
-            SolutionGraphNode.toSvg(sg, "sg.svg");
+            String solutionGraphSvgString = SolutionGraphNode.toSvg(sg, "sg.svg");
 
-            cppParser.convertSvgToCpp(svgString);
-            return maze;
+            SvgService svgService = new SvgService();
+
+            svgService.mergeSvg(svgString, solutionGraphSvgString, "merged.svg");
+
+            cppParser.convertToCpp(svgString, sg);
+
         } catch (Exception e) {
             System.out.println("Error during maze generation!");
             System.out.println("Please check the input parameters. Example usage:");
             System.out.println("  -t <mazeType> (e.g., honeycomb)");
             System.out.println("  -r <int> (rank > 0)");
             System.out.println("  -p <double> (cell change percentage between 0.0 and 100.0)");
+            System.out.println("  -el <int> (edgeLength > 0");
             System.out.println("  -s <seed> (optional, for reproducible results)");
             System.out.println("Error details: " + e.getMessage());
-            e.printStackTrace();
+            //e.printStackTrace();
         }
-        return null;
     }
 }
