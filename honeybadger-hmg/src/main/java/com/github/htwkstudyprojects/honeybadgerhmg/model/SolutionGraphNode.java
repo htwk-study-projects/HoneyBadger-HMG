@@ -130,10 +130,6 @@ public String toString() {
                 "<circle cx=\"%.2f\" cy=\"%.2f\" r=\"0.5\" fill=\"red\" />\n",
                 p.getX(), p.getY()
             ));
-            svg.append(String.format(Locale.US,
-                "<text x=\"%.2f\" y=\"%.2f\" font-size=\"1.2\" text-anchor=\"middle\" dominant-baseline=\"middle\">(%.1f,%.1f)</text>\n",
-                p.getX(), p.getY() - 0.8, p.getX(), p.getY()
-            ));
         }
 
         svg.append("</g>\n</svg>");

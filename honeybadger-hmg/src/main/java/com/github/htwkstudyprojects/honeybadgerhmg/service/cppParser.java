@@ -1,25 +1,55 @@
 package com.github.htwkstudyprojects.honeybadgerhmg.service;
 
-import java.util.regex.*;
 import java.io.File;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import com.github.htwkstudyprojects.honeybadgerhmg.model.SolutionGraphNode;
 
 public class cppParser {
 
-    /**
-     * Converts SVG <line> elements into C++ Maze polygon code.
-     *
-     * @param svg the SVG content as a string
-     * @return generated C++ code for MazeGenerator::generateMaze()
-     */
-    public static String convertSvgToCpp(String svg) {
+    public static String convertToCpp(String svg, List<SolutionGraphNode> solutionGraph) {
+        String polygonPart = generatePolygonFromSvgCpp(svg);
+        String graphPart = generateSolutionGraphCpp(solutionGraph);
+
+        String cppCode = "#include <iostream>\n"
+                       + "#include \"maze_generator.h\"\n\n"
+                       + "void MazeGenerator::generateMaze()\n"
+                       + "{\n"
+                       + polygonPart
+                       + "\n"
+                       + graphPart
+                       + "\n    std::cout << \"Maze and SolutionGraph generated!\" << std::endl;\n"
+                       + "}\n";
+
+        File targetDir = new File("c++");
+        if (!targetDir.exists()) {
+            targetDir.mkdirs();
+        }
+
+        File cppFile = new File(targetDir, "maze_generator.cpp");
+        try (PrintWriter out = new PrintWriter(cppFile)) {
+            out.println(cppCode);
+            System.out.println("maze_generator.cpp wurde erstellt: " + cppFile.getAbsolutePath());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return cppCode;
+    }
+
+    private static String generatePolygonFromSvgCpp(String svg) {
         Pattern linePattern = Pattern.compile(
             "<line x1=\"([-\\d.]+)\" y1=\"([-\\d.]+)\" x2=\"([-\\d.]+)\" y2=\"([-\\d.]+)\""
         );
         Matcher lineMatcher = linePattern.matcher(svg);
 
-        List<String> polygonBlocks = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
 
         while (lineMatcher.find()) {
             float x1 = Float.parseFloat(lineMatcher.group(1));
@@ -27,21 +57,20 @@ public class cppParser {
             float x2 = Float.parseFloat(lineMatcher.group(3));
             float y2 = Float.parseFloat(lineMatcher.group(4));
 
-            String block = String.format(Locale.US,
+            sb.append(String.format(Locale.US,
                 "    {\n" +
                 "        Mazepolygon poly;\n" +
                 "        poly.coordinates.push_back({%.2ff, %.2ff});\n" +
                 "        poly.coordinates.push_back({%.2ff, %.2ff});\n" +
                 "        polygons.push_back(poly);\n" +
-                "    }", x1, y1, x2, y2
-            );
-            polygonBlocks.add(block);
+                "    }\n",
+                x1, y1, x2, y2
+            ));
         }
 
         Pattern rectPattern = Pattern.compile(
-        "<rect x=\"([-\\d.]+)\" y=\"([-\\d.]+)\" width=\"([-\\d.]+)\" height=\"([-\\d.]+)\""
+            "<rect x=\"([-\\d.]+)\" y=\"([-\\d.]+)\" width=\"([-\\d.]+)\" height=\"([-\\d.]+)\""
         );
-
         Matcher rectMatcher = rectPattern.matcher(svg);
 
         while (rectMatcher.find()) {
@@ -55,48 +84,59 @@ public class cppParser {
             float x2 = x + w;
             float y2 = y + h;
 
-            polygonBlocks.add(String.format(Locale.US,
+            sb.append(String.format(Locale.US,
                 "    {\n" +
                 "        Mazepolygon poly;\n" +
-                "        poly.coordinates.push_back({%.2ff, %.2ff});\n" + // oben links
-                "        poly.coordinates.push_back({%.2ff, %.2ff});\n" + // oben rechts
-                "        poly.coordinates.push_back({%.2ff, %.2ff});\n" + // unten rechts
-                "        poly.coordinates.push_back({%.2ff, %.2ff});\n" + // unten links
+                "        poly.coordinates.push_back({%.2ff, %.2ff});\n" +
+                "        poly.coordinates.push_back({%.2ff, %.2ff});\n" +
+                "        poly.coordinates.push_back({%.2ff, %.2ff});\n" +
+                "        poly.coordinates.push_back({%.2ff, %.2ff});\n" +
                 "        polygons.push_back(poly);\n" +
-                "    }",
-                x1, y1,
-                x2, y1,
-                x2, y2,
-                x1, y2
+                "    }\n",
+                x1, y1, x2, y1, x2, y2, x1, y2
             ));
         }
 
-        String cppCode = "#include <iostream>\n"
-                       + "#include <list>\n"
-                       + "#include \"maze_generator.h\"\n\n"
-                       + "void MazeGenerator::generateMaze()\n"
-                       + "{\n"
-                       + String.join("\n\n", polygonBlocks)
-                       + "\n\n    std::cout << \"Maze generated!\" << std::endl;\n"
-                       + "}\n";
+        return sb.toString();
+    }
 
-        File targetDir = new File("c++");
-        if (!targetDir.exists()) {
-            if (targetDir.mkdirs()) {
-                System.out.println("Ordner erstellt: " + targetDir.getAbsolutePath());
-            } else {
-                System.err.println("Ordner konnte nicht erstellt werden!");
+    private static String generateSolutionGraphCpp(List<SolutionGraphNode> solutionGraph) {
+        StringBuilder sb = new StringBuilder();
+        Map<SolutionGraphNode, String> nodeNames = new HashMap<>();
+        int nodeIndex = 0;
+
+        for (SolutionGraphNode node : solutionGraph) {
+            String nodeName = "node" + (++nodeIndex);
+            nodeNames.put(node, nodeName);
+            sb.append(String.format(Locale.US,
+                "    SolutionGraphNode %s;\n" +
+                "    %s.coordinate = {%.2ff, %.2ff};\n",
+                nodeName, nodeName,
+                node.getNodePoint().getX(),
+                node.getNodePoint().getY()
+            ));
+        }
+
+        for (SolutionGraphNode node : solutionGraph) {
+            String nodeName = nodeNames.get(node);
+            for (SolutionGraphNode neighbor : node.getNeighborNodes()) {
+                String neighborName = nodeNames.get(neighbor);
+                sb.append(String.format(
+                    "    %s.neighbors.push_back(&%s);\n",
+                    nodeName, neighborName
+                ));
             }
         }
 
-        File cppFile = new File(targetDir, "maze_generator.cpp");
-        try (PrintWriter out = new PrintWriter(cppFile)) {
-            out.println(cppCode);
-            System.out.println("maze_generator.cpp wurde erstellt: " + cppFile.getAbsolutePath());
-        } catch (Exception e) {
-            e.printStackTrace();
+        for (SolutionGraphNode node : solutionGraph) {
+            String nodeName = nodeNames.get(node);
+            sb.append(String.format(
+                "    solutionGraph.push_back(%s);\n",
+                nodeName
+            ));
         }
 
-        return cppCode;
+        return sb.toString();
     }
+
 }
