@@ -1,11 +1,8 @@
 package com.github.htwkstudyprojects.honeybadgerhmg.service;
 
-import java.util.List;
-
 import com.github.htwkstudyprojects.honeybadgerhmg.model.HoneyCombMaze;
 import com.github.htwkstudyprojects.honeybadgerhmg.model.MazeBadger;
 import com.github.htwkstudyprojects.honeybadgerhmg.model.MazeFactory;
-import com.github.htwkstudyprojects.honeybadgerhmg.model.SolutionGraphNode;
 import com.github.htwkstudyprojects.honeybadgerhmg.repository.CliConfigRepository;
 import com.github.htwkstudyprojects.honeybadgerhmg.repository.IMazeConfigRepository;
 import com.github.htwkstudyprojects.honeybadgerhmg.repository.MazeConfigDto;
@@ -29,8 +26,7 @@ public class MazeService {
             
             HoneyCombMaze badgedMaze = MazeBadger.processHoneyBadger(maze, config.getCellChangePercent());
             String svgString = badgedMaze.toSvg("badged.svg");
-            List<SolutionGraphNode> sg = SolutionGraphNode.generateSolutionGraph(badgedMaze);
-            System.out.println(sg);
+
             cppParser.convertSvgToCpp(svgString);
             return maze;
         } catch (Exception e) {
