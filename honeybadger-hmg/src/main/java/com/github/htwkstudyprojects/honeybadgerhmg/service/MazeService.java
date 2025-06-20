@@ -32,7 +32,11 @@ public class MazeService {
             String svgString = badgedMaze.toSvg("badged.svg");
 
             List<SolutionGraphNode> sg = SolutionGraphNode.generateSolutionGraph(badgedMaze);
-            SolutionGraphNode.toSvg(sg, "sg.svg");
+            String solutionGraphSvgString = SolutionGraphNode.toSvg(sg, "sg.svg");
+
+            SvgService svgService = new SvgService();
+
+            svgService.mergeSvg(svgString, solutionGraphSvgString, "merged.svg");
 
             cppParser.convertToCpp(svgString, sg);
 

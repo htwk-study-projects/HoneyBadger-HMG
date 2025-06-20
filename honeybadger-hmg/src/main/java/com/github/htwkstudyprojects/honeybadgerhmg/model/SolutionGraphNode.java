@@ -19,21 +19,21 @@ public class SolutionGraphNode {
     }
 
     @Override
-public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("SolutionGraphNode [nodePoint=").append(nodePoint).append(", neighbors=[");
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("SolutionGraphNode [nodePoint=").append(nodePoint).append(", neighbors=[");
 
-    for (int i = 0; i < neighborNodes.size(); i++) {
-        SolutionGraphNode neighbor = neighborNodes.get(i);
-        sb.append(neighbor.nodePoint);
-        if (i < neighborNodes.size() - 1) {
-            sb.append(", ");
+        for (int i = 0; i < neighborNodes.size(); i++) {
+            SolutionGraphNode neighbor = neighborNodes.get(i);
+            sb.append(neighbor.nodePoint);
+            if (i < neighborNodes.size() - 1) {
+                sb.append(", ");
+            }
         }
-    }
 
-    sb.append("]]\n");
-    return sb.toString();
-}
+        sb.append("]]\n");
+        return sb.toString();
+    }
 
     public Point getNodePoint() {
         return nodePoint;
@@ -87,7 +87,7 @@ public String toString() {
         return solutionGraph;
     }
 
-    public static  void toSvg(List<SolutionGraphNode> graph, String fileName){
+    public static String toSvg(List<SolutionGraphNode> graph, String fileName){
         StringBuilder svg = new StringBuilder();
 
         double minX = Double.MAX_VALUE;
@@ -111,14 +111,14 @@ public String toString() {
             "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"%.2f\" height=\"%.2f\" viewBox=\"%.2f %.2f %.2f %.2f\">\n",
             width, height, minX - padding, minY - padding, width, height
         ));
-        svg.append("<g stroke-width=\"0.3\" fill=\"none\">\n");
+        svg.append("<g stroke-width=\"0.2\" fill=\"none\">\n");
 
         for (SolutionGraphNode node : graph) {
             Point p1 = node.getNodePoint();
             for (SolutionGraphNode neighbor : node.getNeighborNodes()) {
                 Point p2 = neighbor.getNodePoint();
                 svg.append(String.format(Locale.US,
-                    "<line x1=\"%.2f\" y1=\"%.2f\" x2=\"%.2f\" y2=\"%.2f\" stroke=\"blue\" />\n",
+                    "<line x1=\"%.2f\" y1=\"%.2f\" x2=\"%.2f\" y2=\"%.2f\" stroke=\"#32CD32\" />\n",
                     p1.getX(), p1.getY(), p2.getX(), p2.getY()
                 ));
             }
@@ -127,7 +127,7 @@ public String toString() {
         for (SolutionGraphNode node : graph) {
             Point p = node.getNodePoint();
             svg.append(String.format(Locale.US,
-                "<circle cx=\"%.2f\" cy=\"%.2f\" r=\"0.5\" fill=\"red\" />\n",
+                "<circle cx=\"%.2f\" cy=\"%.2f\" r=\"0.3\" fill=\"#32CD32\" />\n",
                 p.getX(), p.getY()
             ));
         }
@@ -146,6 +146,8 @@ public String toString() {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return svg.toString();
     }
 
 }
