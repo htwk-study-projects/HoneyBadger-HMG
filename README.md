@@ -32,13 +32,5 @@ java -jar honeybadger-hmg.jar -t honeycomb -r 3 -el 2 -p 50.0 -s 12345
 - **Java 21** — Main programming language
 - **Maven** — Build automation and dependency management
 - **JUnit 5 (Jupiter)** — Unit testing framework
-- **Maven Compiler Plugin** — Compilation management
-- **Maven Surefire Plugin** — Test execution
-- **Maven Jar Plugin** — JAR packaging with manifest
-- **Maven Clean Plugin** — Build cleanup
-- **Maven Install Plugin** — Local installation of artifacts
-- **Maven Deploy Plugin** — Deployment to remote repositories
-- **Maven Site Plugin** — Project site generation
-- **Maven Project Info Reports Plugin** — Generates project reports
 - **C++ (generated output)** — The generated C++ code for integration with external systems (e.g., Gazebo)
 
