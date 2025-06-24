@@ -13,7 +13,9 @@ HoneyBadger-HMG is currently a Java program for generating and manipulating hone
 - Saves the C++ file to the path specified by the user
 
 ## Build jar with maven
-To build the project using Maven:
+To build the project using Maven.
+
+⚠️ **Important:** Use the command below in the ./HoneyBagder-HMG/honeybadger-hmg/ directory:
 
 ```bash
 mvn clean install
@@ -35,10 +37,11 @@ honeyBadger-hmg-1.0-SNAPSHOT.jar
 
 ## Example Execution
 
+⚠️ **Important:** Use the command below in the ./HoneyBagder-HMG/honeybadger-hmg/ directory:
+
 ```bash
-java -jar target/honeyBadger-hmg-1.0-SNAPSHOT.jar -t honeycomb -r 3 -el 2 -cp 50.0 -p ./c++
+java -jar target/honeyBadger-hmg-1.0-SNAPSHOT.jar -t honeycomb -r 3 -el 2 -cp 20.0 -p ./c++
 ```
-Wenn man im honeybadger-hmg Order ist.
 
 ## After successful execution
 - SVG files were successfully generated for quick viewing:
@@ -48,12 +51,12 @@ Wenn man im honeybadger-hmg Order ist.
     - sg.svg — Solution graph
 - The output was also parsed into a C++ file.
 - A folder and its corresponding C++ File were created at the path specified by the user
-    ## Terminal output
-    - __SVG file created:__ /Users/<username>/HoneyBadger-HMG/honeybadger-hmg/svg/normal.svg
+- ## Terminal output
+    - **SVG file created:** /Users/<username>/HoneyBadger-HMG/honeybadger-hmg/svg/normal.svg
     - **SVG file created:** /Users/<username>/HoneyBadger-HMG/honeybadger-hmg/svg/badged.svg
     - **SVG file created:** /Users/<username>/HoneyBadger-HMG/honeybadger-hmg/svg/sg.svg
     - **SVG file erstellt:** /Users/<username>/HoneyBadger-HMG/honeybadger-hmg/svg/merged.svg
-    - **C++ file maze_generator.cpp created:** /Users/<username>/HoneyBadger-HMG/honeybadger-hmg/./c++/maze_generator.cpp
+    - **C++ file "maze_generator.cpp" created:** /Users/<username>/HoneyBadger-HMG/honeybadger-hmg/./c++/maze_generator.cpp
  
 
 
