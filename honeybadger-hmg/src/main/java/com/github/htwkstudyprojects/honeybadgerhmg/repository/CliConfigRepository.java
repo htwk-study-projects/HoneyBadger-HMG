@@ -8,6 +8,7 @@ public class CliConfigRepository implements IMazeConfigRepository{
         int rang = -1;
         int edgeLength = -1;
         double cellChangePercent = -1;
+        String path = "";
         Long seed = null;
 
         for (int i = 0; i < args.length; i++) {
@@ -15,7 +16,7 @@ public class CliConfigRepository implements IMazeConfigRepository{
                 case "-r":
                     rang = Integer.parseInt(args[++i]);
                     break;
-                case "-p":
+                case "-cp":
                     cellChangePercent = Double.parseDouble(args[++i]);
                     break;
                 case "-s":
@@ -27,16 +28,19 @@ public class CliConfigRepository implements IMazeConfigRepository{
                 case "-el":
                     edgeLength = Integer.parseInt(args[++i]);
                     break;
+                case "-p":
+                    path = args[++i];
+                    break;
                 default:
                     throw new IllegalArgumentException("Unknown argument: " + args[i]);
             }
         }
 
-        if(type == ""){
+        if(type.trim().isEmpty()){
             throw new IllegalArgumentException("Type was empty");
         }
 
-        if (rang <= 0) {
+        if(rang <= 0) {
             throw new IllegalArgumentException("Rang must be > 0, but was: " + rang);
         }
 
@@ -44,11 +48,15 @@ public class CliConfigRepository implements IMazeConfigRepository{
             throw new IllegalArgumentException("EdgeLength must be > 0, but was: " + edgeLength);
         }
 
-        if (cellChangePercent < 0.0 || cellChangePercent > 100.0) {
+        if(cellChangePercent < 0.0 || cellChangePercent > 100.0) {
             throw new IllegalArgumentException("cellChangePercent must be between 0.0 and 100.0, but was: " + cellChangePercent);
         }
 
-        return new MazeConfigDto(type, rang, cellChangePercent, edgeLength, seed);
+        if(path.trim().isEmpty()) {
+            throw new IllegalArgumentException("Path is empty. Please provide the path where the C++ file should be generated.");
+        }
+
+        return new MazeConfigDto(type, rang, cellChangePercent, edgeLength, path, seed);
     }
     
 }

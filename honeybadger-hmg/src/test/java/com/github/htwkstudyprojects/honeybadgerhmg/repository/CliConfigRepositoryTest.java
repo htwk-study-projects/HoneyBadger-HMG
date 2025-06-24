@@ -24,18 +24,19 @@ public class CliConfigRepositoryTest {
     public void testLoadConfiguration_tableDriven(){
         IMazeConfigRepository repo = new CliConfigRepository();
 
-       TestCase[] cases = new TestCase[] {
-            new TestCase("Valid input with seed", new String[] {"-t", "honeycomb", "-r", "3", "-p", "50.0", "-el", "2", "-s", "12345"}, true),
-            new TestCase("Valid input without seed", new String[] {"-t", "honeycomb", "-r", "2", "-p", "25.5", "-el", "1"}, true),
-            new TestCase("Invalid rang (zero)", new String[] {"-t", "honeycomb", "-r", "0", "-p", "50.0", "-el", "2"}, false),
-            new TestCase("Invalid percent (too high)", new String[] {"-t", "honeycomb", "-r", "3", "-p", "150.0", "-el", "2"}, false),
-            new TestCase("Invalid percent (negative)", new String[] {"-t", "honeycomb", "-r", "3", "-p", "-5", "-el", "2"}, false),
-            new TestCase("Missing rang", new String[] {"-t", "honeycomb", "-p", "50.0", "-el", "2"}, false),
-            new TestCase("Missing percent", new String[] {"-t", "honeycomb", "-r", "3", "-el", "2"}, false),
-            new TestCase("Missing type", new String[] {"-r", "3", "-p", "50.0", "-el", "2"}, false),
-            new TestCase("Missing edge length", new String[] {"-t", "honeycomb", "-r", "3", "-p", "50.0"}, false),
-            new TestCase("Invalid edge length (negative)", new String[] {"-t", "honeycomb", "-r", "3", "-p", "50.0", "-el", "-1"}, false),
-            new TestCase("Unknown argument", new String[] {"-t", "honeycomb", "-r", "3", "-p", "50.0", "-el", "2", "-x"}, false)
+        TestCase[] cases = new TestCase[] {
+            new TestCase("Valid input with seed", new String[] {"-t", "honeycomb", "-r", "3", "-cp", "50.0", "-el", "2", "-p", "/some/path", "-s", "12345"}, true),
+            new TestCase("Valid input without seed", new String[] {"-t", "honeycomb", "-r", "2", "-cp", "25.5", "-el", "1", "-p", "/some/path"}, true),
+            new TestCase("Invalid rang (zero)", new String[] {"-t", "honeycomb", "-r", "0", "-cp", "50.0", "-el", "2", "-p", "/some/path"}, false),
+            new TestCase("Invalid percent (too high)", new String[] {"-t", "honeycomb", "-r", "3", "-cp", "150.0", "-el", "2", "-p", "/some/path"}, false),
+            new TestCase("Invalid percent (negative)", new String[] {"-t", "honeycomb", "-r", "3", "-cp", "-5", "-el", "2", "-p", "/some/path"}, false),
+            new TestCase("Missing rang", new String[] {"-t", "honeycomb", "-cp", "50.0", "-el", "2", "-p", "/some/path"}, false),
+            new TestCase("Missing percent", new String[] {"-t", "honeycomb", "-r", "3", "-el", "2", "-p", "/some/path"}, false),
+            new TestCase("Missing type", new String[] {"-r", "3", "-cp", "50.0", "-el", "2", "-p", "/some/path"}, false),
+            new TestCase("Missing edge length", new String[] {"-t", "honeycomb", "-r", "3", "-cp", "50.0", "-p", "/some/path"}, false),
+            new TestCase("Invalid edge length (negative)", new String[] {"-t", "honeycomb", "-r", "3", "-cp", "50.0", "-el", "-1", "-p", "/some/path"}, false),
+            new TestCase("Unknown argument", new String[] {"-t", "honeycomb", "-r", "3", "-cp", "50.0", "-el", "2", "-p", "/some/path", "-x"}, false),
+            new TestCase("Missing path", new String[] {"-t", "honeycomb", "-r", "3", "-cp", "50.0", "-el", "2"}, false)
         };
 
 
