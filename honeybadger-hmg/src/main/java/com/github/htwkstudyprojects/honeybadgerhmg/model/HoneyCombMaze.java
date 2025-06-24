@@ -243,20 +243,22 @@ public class HoneyCombMaze {
                 }
             }
         }
-    
-        double padding = 2;
-        double width = maxX - minX + padding * 2;
-        double height = maxY - minY + padding * 2;
+        
+        double scale = 10.0;
+
+        double padding = 2 * scale;
+        double width = (maxX - minX) * scale + padding * 2;
+        double height = (maxY - minY) * scale + padding * 2;
     
         svg.append(String.format(Locale.US,
             "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"%.2f\" height=\"%.2f\" viewBox=\"%.2f %.2f %.2f %.2f\">\n",
-            width, height, minX - padding, minY - padding, width, height
+             width, height, minX * scale - padding, minY * scale - padding, width, height
         ));
         svg.append("<g stroke-width=\"0.4\" fill=\"none\">\n");
 
         svg.append(String.format(Locale.US,
-            "<rect x=\"%.2f\" y=\"%.2f\" width=\"%.2f\" height=\"%.2f\" stroke=\"black\" stroke-width=\"0.5\" fill=\"none\" />\n",
-            minX - padding, minY - padding, width, height
+            "<rect x=\"%.2f\" y=\"%.2f\" width=\"%.2f\" height=\"%.2f\" stroke=\"black\" stroke-width=\"%.2f\" fill=\"none\" />\n",
+             minX * scale - padding, minY * scale - padding, width, height, 0.5 * scale
         ));
     
         for (List<HoneyComb> row : honeyCombsRowGrid) {
@@ -265,10 +267,10 @@ public class HoneyCombMaze {
                     for (Edge edge : comb.getDefiningEdges()) {
                         if(edge.isWall()){
                             svg.append(String.format(Locale.US,
-                            "<line x1=\"%.2f\" y1=\"%.2f\" x2=\"%.2f\" y2=\"%.2f\" stroke=\"%s\" />\n",
-                            edge.getStartPoint().getX(), edge.getStartPoint().getY(),
-                            edge.getEndPoint().getX(), edge.getEndPoint().getY(),
-                            "black"
+                            "<line x1=\"%.2f\" y1=\"%.2f\" x2=\"%.2f\" y2=\"%.2f\" stroke=\"%s\" stroke-width=\"%.2f\" />\n",
+                            edge.getStartPoint().getX() * scale, edge.getStartPoint().getY() * scale,
+                            edge.getEndPoint().getX() * scale, edge.getEndPoint().getY() * scale,
+                            "black", 0.3 * scale
                         ));
                         }
                         
