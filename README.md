@@ -18,7 +18,7 @@ Full directory: https://github.com/htwk-study-projects/HoneyBadger-HMG
 ## Build jar with maven
 To build the project using Maven.
 
-⚠️ **Important:** Use the command below in the ./HoneyBagder-HMG/honeybadger-hmg/ directory:
+⚠️ **Important:** Use the command below in the ./HoneyBadger-HMG/honeybadger-hmg/ directory:
 
 ```bash
 mvn clean install
@@ -40,7 +40,7 @@ honeyBadger-hmg-1.0-SNAPSHOT.jar
 
 ## Example Execution
 
-⚠️ **Important:** Use the command below in the ./HoneyBagder-HMG/honeybadger-hmg/ directory:
+⚠️ **Important:** Use the command below in the ./HoneyBadger-HMG/honeybadger-hmg/ directory:
 
 ```bash
 java -jar target/honeyBadger-hmg-1.0-SNAPSHOT.jar -t honeycomb -r 3 -el 2 -cp 20.0 -p ./c++
@@ -59,7 +59,7 @@ java -jar target/honeyBadger-hmg-1.0-SNAPSHOT.jar -t honeycomb -r 3 -el 2 -cp 20
     - **SVG file created:** /Users/username/HoneyBadger-HMG/honeybadger-hmg/svg/normal.svg
     - **SVG file created:** /Users/username/HoneyBadger-HMG/honeybadger-hmg/svg/badged.svg
     - **SVG file created:** /Users/username/HoneyBadger-HMG/honeybadger-hmg/svg/sg.svg
-    - **SVG file erstellt:** /Users/username/HoneyBadger-HMG/honeybadger-hmg/svg/merged.svg
+    - **SVG file created:** /Users/username/HoneyBadger-HMG/honeybadger-hmg/svg/merged.svg
     - **C++ file "maze_generator.cpp" created:** /Users/username/HoneyBadger-HMG/honeybadger-hmg/./c++/maze_generator.cpp
  
 
