@@ -10,6 +10,18 @@ HoneyBadger-HMG is currently a Java program for generating and manipulating hone
 - Export as SVG, with combined rendering of maze and solution graph.
 - Conversion of SVG data into C++ code for further processing.
 - Configurable via CLI arguments.
+- Saves the C++ file to the path specified by the user
+
+## Build jar with maven
+To build the project using Maven:
+
+```bash
+mvn clean install
+```
+This will create the JAR file in the target directory:
+```bash
+honeyBadger-hmg-1.0-SNAPSHOT.jar
+```
 
 ## CLI Parameters
 
@@ -18,14 +30,32 @@ HoneyBadger-HMG is currently a Java program for generating and manipulating hone
 | `-t` | Maze type (e.g., `honeycomb`) | `-t honeycomb` |
 | `-r` | Rank (size of the maze, >0) | `-r 3` |
 | `-el` | Edge length (>0) | `-el 2` |
-| `-p` | Percentage of cells to modify (0.0–100.0) | `-p 50.0` |
-| `-s` | Optional seed for random generation | `-s 12345` |
+| `-cp` | Percentage of cells to modify (0.0–100.0) | `-p 50.0` |
+| `-p`| Path for generated C++ file | `-p ./path/path`|
 
 ## Example Execution
 
 ```bash
-java -jar honeybadger-hmg.jar -t honeycomb -r 3 -el 2 -p 50.0 -s 12345
+java -jar target/honeyBadger-hmg-1.0-SNAPSHOT.jar -t honeycomb -r 3 -el 2 -cp 50.0 -p ./c++
 ```
+Wenn man im honeybadger-hmg Order ist.
+
+## After successful execution
+- SVG files were successfully generated for quick viewing:
+    - badged.svg — The maze with modified (badged) cells to make it more interesting
+    - merged.svg — Combined view of the maze and the path graph
+    -   normal.svg — Basic maze layout
+    - sg.svg — Solution graph
+- The output was also parsed into a C++ file.
+- A folder and its corresponding C++ File were created at the path specified by the user
+    ## Terminal output
+    - __SVG file created:__ /Users/<username>/HoneyBadger-HMG/honeybadger-hmg/svg/normal.svg
+    - **SVG file created:** /Users/<username>/HoneyBadger-HMG/honeybadger-hmg/svg/badged.svg
+    - **SVG file created:** /Users/<username>/HoneyBadger-HMG/honeybadger-hmg/svg/sg.svg
+    - **SVG file erstellt:** /Users/<username>/HoneyBadger-HMG/honeybadger-hmg/svg/merged.svg
+    - **C++ file maze_generator.cpp created:** /Users/<username>/HoneyBadger-HMG/honeybadger-hmg/./c++/maze_generator.cpp
+ 
+
 
 ## Tech Stack
 
