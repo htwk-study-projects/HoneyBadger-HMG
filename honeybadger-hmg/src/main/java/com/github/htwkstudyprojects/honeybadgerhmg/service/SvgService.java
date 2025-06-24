@@ -28,16 +28,16 @@ public class SvgService {
         File targetDir = new File("svg");
         if (!targetDir.exists()) {
             if (targetDir.mkdirs()) {
-                System.out.println("Ordner erstellt: " + targetDir.getAbsolutePath());
+                System.out.println("Directory created: " + targetDir.getAbsolutePath());
             } else {
-                System.err.println("Ordner konnte nicht erstellt werden!");
+                System.err.println("Failed to create directory!");
             }
         }
 
         File svgFile = new File(targetDir, fileName);
         try (PrintWriter out = new PrintWriter(svgFile)) {
             out.println(mergedString);
-            System.out.println("SVG-Datei erstellt: " + svgFile.getAbsolutePath());
+            System.out.println("SVG file created: " + svgFile.getAbsolutePath());
         } catch (Exception e) {
             e.printStackTrace();
         }

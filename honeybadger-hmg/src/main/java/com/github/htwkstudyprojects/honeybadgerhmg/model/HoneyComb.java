@@ -113,16 +113,11 @@ public class HoneyComb {
             if(this.neighborHoneyCombs[i] == neighborId) direction = Directions.fromIndex(i);
         }
         if(direction != Directions.ERROR){
-            System.out.println("Trying to remove wall between " + this.getId() + " and neighbor " + neighborId);
-            System.out.println("Neighbors: " + Arrays.toString(this.neighborHoneyCombs));
-            System.out.println("Chosen direction: " + direction);
             this.definingEdges[direction.getIndex()].setWall(false);
         } 
-        else System.out.println("error bei remove wall");
     }
 
     public int[] getReachableNeighborHoneyCombs(){
-        System.out.println(Arrays.toString(definingEdges));
         for(Directions dir : Directions.values()){
             if(dir == Directions.ERROR) continue;
             if(!this.definingEdges[dir.getIndex()].isWall()){

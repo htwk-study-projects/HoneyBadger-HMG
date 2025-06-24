@@ -13,7 +13,7 @@ import com.github.htwkstudyprojects.honeybadgerhmg.model.SolutionGraphNode;
 
 public class cppParser {
 
-    public static String convertToCpp(String svg, List<SolutionGraphNode> solutionGraph) {
+    public static String convertToCpp(String svg, List<SolutionGraphNode> solutionGraph, String path) {
         String polygonPart = generatePolygonFromSvgCpp(svg);
         String graphPart = generateSolutionGraphCpp(solutionGraph);
 
@@ -27,15 +27,19 @@ public class cppParser {
                        + "\n    std::cout << \"Maze and SolutionGraph generated!\" << std::endl;\n"
                        + "}\n";
 
-        File targetDir = new File("c++");
+        File targetDir = new File(path);
         if (!targetDir.exists()) {
-            targetDir.mkdirs();
+            if (targetDir.mkdirs()) {
+                System.out.println("Directory created: " + targetDir.getAbsolutePath());
+            } else {
+                System.err.println("Failed to create directory!");
+            }
         }
 
         File cppFile = new File(targetDir, "maze_generator.cpp");
         try (PrintWriter out = new PrintWriter(cppFile)) {
             out.println(cppCode);
-            System.out.println("maze_generator.cpp wurde erstellt: " + cppFile.getAbsolutePath());
+            System.out.println("C++ file \"maze_generator.cpp\" created: " + cppFile.getAbsolutePath());
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -136,13 +136,17 @@ public class SolutionGraphNode {
 
         File targetDir = new File("svg");
         if (!targetDir.exists()) {
-            targetDir.mkdirs();
+           if (targetDir.mkdirs()) {
+                System.out.println("Directory created: " + targetDir.getAbsolutePath());
+            } else {
+                System.err.println("Failed to create directory!");
+            }
         }
 
         File svgFile = new File(targetDir, fileName);
         try (PrintWriter out = new PrintWriter(svgFile)) {
             out.println(svg.toString());
-            System.out.println("SVG-Datei erstellt: " + svgFile.getAbsolutePath());
+            System.out.println("SVG file created: " + svgFile.getAbsolutePath());
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -132,7 +132,6 @@ public class HoneyCombMaze {
 
         HoneyComb startComb = chooseRandomHoneyComb();
         mazeHoneyCombs.add(startComb.getId());
-        System.out.println("start: " + startComb.getId());
         this.addFrontier(startComb, frontier, mazeHoneyCombs);
 
         while(!frontier.isEmpty()){
@@ -152,13 +151,11 @@ public class HoneyCombMaze {
                     connectedMazeNeighbors.add(neighborHoneyCombId);
                 }
             }
-            System.out.println(currentComb.getId() + " hat folgende Nachbarn die bereits im Maze sind: " + connectedMazeNeighbors);
             if (connectedMazeNeighbors.isEmpty()) {
                 continue;
             }
 
             int randNeighborId = connectedMazeNeighbors.get(random.nextInt(connectedMazeNeighbors.size()));
-            System.out.println("removes Wall from " + currentComb.getId() + " to " + randNeighborId);
             currentComb.removeWallBetween(randNeighborId);
             getHoneyCombById(randNeighborId).ifPresent(neighborComb -> neighborComb.removeWallBetween(currentId));
 
@@ -222,8 +219,6 @@ public class HoneyCombMaze {
         double maxX = Double.MIN_VALUE;
         double maxY = Double.MIN_VALUE;
         
-        int edgeCount = 0;
-        
         for (List<HoneyComb> row : honeyCombsRowGrid) {
             for (HoneyComb comb : row) {
                 if (comb != null) {
@@ -232,13 +227,10 @@ public class HoneyCombMaze {
                         minY = Math.min(minY, Math.min(edge.getStartPoint().getY(), edge.getEndPoint().getY()));
                         maxX = Math.max(maxX, Math.max(edge.getStartPoint().getX(), edge.getEndPoint().getX()));
                         maxY = Math.max(maxY, Math.max(edge.getStartPoint().getY(), edge.getEndPoint().getY()));
-                        if(edge.isWall()) edgeCount++;
                     }
                 }
             }
         }
-    
-        System.out.println("Anzahl gezeichneter Edges: " + edgeCount);
     
         double padding = 2;
         double width = maxX - minX + padding * 2;
@@ -277,16 +269,16 @@ public class HoneyCombMaze {
         File targetDir = new File("svg");
         if (!targetDir.exists()) {
             if (targetDir.mkdirs()) {
-                System.out.println("Ordner erstellt: " + targetDir.getAbsolutePath());
+                System.out.println("Directory created: " + targetDir.getAbsolutePath());
             } else {
-                System.err.println("Ordner konnte nicht erstellt werden!");
+                System.err.println("Failed to create directory!");
             }
         }
 
         File svgFile = new File(targetDir, name);
         try (PrintWriter out = new PrintWriter(svgFile)) {
             out.println(svg.toString());
-            System.out.println("SVG-Datei erstellt: " + svgFile.getAbsolutePath());
+            System.out.println("SVG file created: " + svgFile.getAbsolutePath());
         } catch (Exception e) {
             e.printStackTrace();
         }
