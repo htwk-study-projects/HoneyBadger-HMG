@@ -1,6 +1,9 @@
 # HoneyBadger-HMG
 
-HoneyBadger-HMG is currently a Java program for generating and manipulating honeycomb mazes, including cell badging (modification of individual cells) and solution graph visualization. The generated data can be exported as SVG files and translated into C++ code for a Gazebo interface.
+HoneyBadger-HMG is currently a Java program for generating and manipulating honeycomb mazes, including cell badging (modification of individual cells) and solution graph visualization.<br>
+The generated data can be exported as SVG files and translated into C++ code for a Gazebo interface.
+
+Full directory: https://github.com/htwk-study-projects/HoneyBadger-HMG
 
 ## Features
 
@@ -51,12 +54,13 @@ java -jar target/honeyBadger-hmg-1.0-SNAPSHOT.jar -t honeycomb -r 3 -el 2 -cp 20
     - sg.svg — Solution graph
 - The output was also parsed into a C++ file.
 - A folder and its corresponding C++ File were created at the path specified by the user
-- ## Terminal output
-    - **SVG file created:** /Users/<username>/HoneyBadger-HMG/honeybadger-hmg/svg/normal.svg
-    - **SVG file created:** /Users/<username>/HoneyBadger-HMG/honeybadger-hmg/svg/badged.svg
-    - **SVG file created:** /Users/<username>/HoneyBadger-HMG/honeybadger-hmg/svg/sg.svg
-    - **SVG file erstellt:** /Users/<username>/HoneyBadger-HMG/honeybadger-hmg/svg/merged.svg
-    - **C++ file "maze_generator.cpp" created:** /Users/<username>/HoneyBadger-HMG/honeybadger-hmg/./c++/maze_generator.cpp
+
+- ## Example Terminal output
+    - **SVG file created:** /Users/username/HoneyBadger-HMG/honeybadger-hmg/svg/normal.svg
+    - **SVG file created:** /Users/username/HoneyBadger-HMG/honeybadger-hmg/svg/badged.svg
+    - **SVG file created:** /Users/username/HoneyBadger-HMG/honeybadger-hmg/svg/sg.svg
+    - **SVG file erstellt:** /Users/username/HoneyBadger-HMG/honeybadger-hmg/svg/merged.svg
+    - **C++ file "maze_generator.cpp" created:** /Users/username/HoneyBadger-HMG/honeybadger-hmg/./c++/maze_generator.cpp
  
 
 
