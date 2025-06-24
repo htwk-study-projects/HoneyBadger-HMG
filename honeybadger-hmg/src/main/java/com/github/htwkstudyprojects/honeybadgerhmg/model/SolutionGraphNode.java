@@ -8,6 +8,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+* Represents a node in a solution graph for a honeycomb maze.
+* Each node corresponds to the center point of a honeycomb cell
+* and keeps track of its reachable neighboring nodes.
+*/
 public class SolutionGraphNode {
     final Point nodePoint;
     List<SolutionGraphNode> neighborNodes;
@@ -49,6 +54,14 @@ public class SolutionGraphNode {
         this.neighborNodes.add(node);
     }
 
+    /**
+    * Generates a solution graph from the given maze.
+    * Each node corresponds to a honeycomb cell's center point,
+    * and edges represent accessible paths between cells.
+    *
+    * @param maze the honeycomb maze to process
+    * @return a list of solution graph nodes representing the graph
+    */
     public static List<SolutionGraphNode> generateSolutionGraph(HoneyCombMaze maze) {
         List<SolutionGraphNode> solutionGraph = new ArrayList<>();
         List<List<HoneyComb>> honeyCombRows = maze.getHoneyCombs();
@@ -153,5 +166,4 @@ public class SolutionGraphNode {
 
         return svg.toString();
     }
-
 }

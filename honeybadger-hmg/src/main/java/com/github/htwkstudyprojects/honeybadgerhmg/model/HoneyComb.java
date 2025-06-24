@@ -2,6 +2,10 @@ package com.github.htwkstudyprojects.honeybadgerhmg.model;
 
 import java.util.Arrays;
 
+/**
+ * Represents a single hexagonal cell (honeycomb) in the honeycomb maze.
+ * Each honeycomb has a unique ID, center point, 6 edges, and references to its neighbors.
+ */
 public class HoneyComb {
     private static int idCounter = 0;
 
@@ -62,6 +66,12 @@ public class HoneyComb {
         return centerPoint;
     }
 
+    /**
+    * Gets the array of defining edges of this honeycomb.
+    * The array follows the order defined by {@link Directions}.
+    *
+    * @return An array of 6 {@link Edge} objects.
+    */
     public Edge[] getDefiningEdges() {
         return definingEdges;
     }
@@ -70,6 +80,12 @@ public class HoneyComb {
         this.definingEdges = definingEdges;
     }
 
+    /**
+    * Gets the IDs of neighboring honeycombs.
+    * The array index corresponds to the {@link Directions} index.
+    *
+    * @return An array of neighbor IDs, or -1 if no neighbor.
+    */
     public int[] getNeighborHoneyCombs() {
         return neighborHoneyCombs;
     }
