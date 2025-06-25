@@ -10,6 +10,10 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
+
+/**
+ * Represents a honeycomb maze structure, providing methods to generate, configure and export the maze.
+ */
 public class HoneyCombMaze {
 
     private List<List<HoneyComb>> honeyCombsRowGrid;
@@ -24,6 +28,13 @@ public class HoneyCombMaze {
         this.calculateElementsEachRow = calculateElementsEachRow();
     }
 
+    /**
+     * Factory method to create and generate a honeycomb maze with the given rank and edge length.
+     *
+     * @param rang the rank of the maze (controls size)
+     * @param edgeLength the length of each honeycomb edge
+     * @return a generated HoneyCombMaze instance
+     */
     static public HoneyCombMaze generateHoneyCombMaze(int rang, int edgeLength){
         HoneyCombMaze honeyCombMaze = new HoneyCombMaze(rang);
         honeyCombMaze.generateHoneyCombStructure(edgeLength, honeyCombMaze.calculateElementsEachRow);
@@ -67,7 +78,6 @@ public class HoneyCombMaze {
             determineNextCurrentCenterPoint(rows, currentCenterPoint, distanceTopToCenter, i, combAbove);  
         }
     }
-
 
     private void determineNextCurrentCenterPoint(int[] rows, Point currentCenterPoint, double distanceTopToCenter, int i, HoneyComb combAbove) {
         if(i >= rows.length / 2){
@@ -126,6 +136,9 @@ public class HoneyCombMaze {
         currentCenterPoint.setY(topPoint.getY() - distanceTopToCenter); 
     }
 
+    /**
+    * Generates maze paths using a randomized Prim's algorithm variant.
+    */
     private void generateMazePaths(){
         Set<Integer> frontier = new HashSet<>();
         Set<Integer> mazeHoneyCombs = new HashSet<>();
@@ -161,7 +174,6 @@ public class HoneyCombMaze {
 
             mazeHoneyCombs.add(currentId);
             this.addFrontier(currentComb, frontier, mazeHoneyCombs);
-
         }
     }
 

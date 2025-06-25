@@ -3,6 +3,16 @@ package com.github.htwkstudyprojects.honeybadgerhmg.model;
 import java.util.Optional;
 import java.util.Random;
 
+/**
+ * The MazeBadger simulates a "badger" that modifies a given honeycomb maze
+ * by randomly selecting honeycombs and changing their structure.
+ * 
+ * For selected honeycombs:
+ * <ul>
+ *   <li>All of their edges become indestructible walls.</li>
+ *   <li>Neighbor honeycombs may have some walls removed to create path connections.</li>
+ * </ul>
+ */
 public class MazeBadger {
 
     public static HoneyCombMaze processHoneyBadger(HoneyCombMaze maze, double cellChangePercent) {

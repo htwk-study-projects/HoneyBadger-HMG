@@ -1,5 +1,11 @@
 package com.github.htwkstudyprojects.honeybadgerhmg.repository;
 
+/**
+* Data Transfer Object (DTO) for maze configuration parameters.
+* <p>
+* This class holds the configuration values required to generate a maze,
+* such as the type, size (rang), edge length, cell change percentage, output path, and an optional seed.
+*/
 public class MazeConfigDto {
 
     private final String mazeType;
@@ -42,13 +48,15 @@ public class MazeConfigDto {
         return seed;
     }
 
-    @Override
     public String toString() {
-        return "MazeConfiguration{" +
-                "rang=" + rang +
-                ", cellChangePercent=" + cellChangePercent +
-                ", edgeLength=" + edgeLength+
-                ", seed=" + seed +
+        return "MazeConfigDto {" +
+                "  mazeType='" + mazeType  +
+                "  ,rang=" + rang +
+                "  ,cellChangePercent=" + cellChangePercent +
+                "  ,edgeLength=" + edgeLength +
+                "  ,pathForCpp='" + pathForCpp +
+                "  ,seed=" + seed +
                 '}';
     }
+
 }
