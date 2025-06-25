@@ -116,13 +116,15 @@ public class SolutionGraphNode {
             maxY = Math.max(maxY, p.getY());
         }
 
-        double padding = 2;
-        double width = maxX - minX + padding * 2;
-        double height = maxY - minY + padding * 2;
+        double scale = 10.0;
+
+        double padding = 2 * scale;
+        double width = (maxX - minX) * scale + padding * 2;
+        double height = (maxY - minY) * scale + padding * 2;
 
         svg.append(String.format(Locale.US,
             "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"%.2f\" height=\"%.2f\" viewBox=\"%.2f %.2f %.2f %.2f\">\n",
-            width, height, minX - padding, minY - padding, width, height
+            width, height, minX * scale - padding, minY * scale - padding, width, height
         ));
         svg.append("<g stroke-width=\"0.2\" fill=\"none\">\n");
 
@@ -132,7 +134,7 @@ public class SolutionGraphNode {
                 Point p2 = neighbor.getNodePoint();
                 svg.append(String.format(Locale.US,
                     "<line x1=\"%.2f\" y1=\"%.2f\" x2=\"%.2f\" y2=\"%.2f\" stroke=\"#32CD32\" />\n",
-                    p1.getX(), p1.getY(), p2.getX(), p2.getY()
+                    p1.getX() * scale, p1.getY() * scale, p2.getX() * scale, p2.getY() * scale
                 ));
             }
         }
@@ -140,8 +142,8 @@ public class SolutionGraphNode {
         for (SolutionGraphNode node : graph) {
             Point p = node.getNodePoint();
             svg.append(String.format(Locale.US,
-                "<circle cx=\"%.2f\" cy=\"%.2f\" r=\"0.3\" fill=\"#32CD32\" />\n",
-                p.getX(), p.getY()
+                "<circle cx=\"%.2f\" cy=\"%.2f\" r=\"%.2f\" fill=\"#32CD32\" />\n",
+                p.getX() * scale, p.getY() * scale, 0.3 * scale
             ));
         }
 
