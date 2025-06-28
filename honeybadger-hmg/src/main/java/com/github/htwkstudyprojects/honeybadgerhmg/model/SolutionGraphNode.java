@@ -133,8 +133,8 @@ public class SolutionGraphNode {
             for (SolutionGraphNode neighbor : node.getNeighborNodes()) {
                 Point p2 = neighbor.getNodePoint();
                 svg.append(String.format(Locale.US,
-                    "<line x1=\"%.2f\" y1=\"%.2f\" x2=\"%.2f\" y2=\"%.2f\" stroke=\"#32CD32\" />\n",
-                    p1.getX() * scale, p1.getY() * scale, p2.getX() * scale, p2.getY() * scale
+                    "<line x1=\"%.2f\" y1=\"%.2f\" x2=\"%.2f\" y2=\"%.2f\" stroke-width=\"%.2f\" stroke=\"#32CD32\" />\n",
+                    p1.getX() * scale, p1.getY() * scale, p2.getX() * scale, p2.getY() * scale, 0.1 * scale
                 ));
             }
         }
