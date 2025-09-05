@@ -3,8 +3,6 @@
 HoneyBadger-HMG is currently a Java program for generating and manipulating honeycomb mazes, including cell badging (modification of individual cells) and solution graph visualization.<br>
 The generated data can be exported as SVG files and translated into C++ code for a Gazebo interface.
 
-Full directory: https://github.com/htwk-study-projects/HoneyBadger-HMG
-
 ## Features
 
 - Generation of honeycomb mazes with configurable type, rank, and edge length.
